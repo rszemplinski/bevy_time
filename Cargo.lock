@@ -761,15 +761,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "bevy_pancam"
-version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "67f3862bc02d850b63ce59b91d451b8b0e620ca036adf8f73529ebaed198e7c9"
-dependencies = [
- "bevy",
-]
-
-[[package]]
 name = "bevy_pbr"
 version = "0.11.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2858,8 +2849,7 @@ dependencies = [
  "bevy",
  "bevy-inspector-egui",
  "bevy_cursor",
- "bevy_pancam",
- "test_plugin",
+ "bevy_egui",
 ]
 
 [[package]]
@@ -3197,13 +3187,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6093bad37da69aab9d123a8091e4be0aa4a03e4d601ec641c327398315f62b64"
 dependencies = [
  "winapi-util",
-]
-
-[[package]]
-name = "test_plugin"
-version = "0.1.0"
-dependencies = [
- "bevy",
 ]
 
 [[package]]
