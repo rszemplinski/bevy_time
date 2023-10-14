@@ -2,6 +2,7 @@ use bevy::input::mouse::MouseButtonInput;
 use bevy::prelude::*;
 use bevy::sprite::MaterialMesh2dBundle;
 use bevy_cursor::CursorInfo;
+use bevy_egui::{EguiContext, EguiSet};
 use bevy_inspector_egui::bevy_egui::EguiContexts;
 
 #[derive(Resource, Default, Debug, Clone)]
@@ -31,7 +32,7 @@ fn mouse_click_system(
     mouse_input: Res<Input<MouseButton>>,
     cursor: Res<CursorInfo>,
     mut target: ResMut<Target>,
-    mut contexts: EguiContexts
+    mut contexts: EguiContexts,
 ) {
     if contexts.ctx().wants_pointer_input() {
         return;
@@ -81,6 +82,7 @@ impl Plugin for ChasePlugin {
         app
             .init_resource::<Target>()
             .add_systems(Startup, setup)
-            .add_systems(Update, (mouse_click_system, move_towards_target_system, draw_target));
+            .add_systems(Update, (mouse_click_system, move_towards_target_system, draw_target)
+                .chain().after(EguiSet::ProcessInput));
     }
 }

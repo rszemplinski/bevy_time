@@ -1,6 +1,7 @@
 use bevy::input::mouse::{MouseMotion, MouseWheel};
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
+use bevy_egui::EguiSet;
 use bevy_inspector_egui::{bevy_egui, egui};
 use bevy_inspector_egui::bevy_egui::{EguiContext, EguiContexts};
 
@@ -64,12 +65,7 @@ fn zoom_camera_system(
     mut ev_mouse_wheel: EventReader<MouseWheel>,
     zoom_control: Res<ZoomControl>,
     mut query: Query<(&mut CameraZoom, &mut Transform)>,
-    mut contexts: EguiContexts
 ) {
-    if contexts.ctx().wants_pointer_input() {
-        return;
-    }
-
     for event in ev_mouse_wheel.iter() {
         for (mut camera_zoom, mut transform) in query.iter_mut() {
             let zoom_change = if event.y > 0.0 {
@@ -88,6 +84,11 @@ fn zoom_camera_system(
     }
 }
 
+fn egui_mouse_unused(egui_contexts: Query<&EguiContext>) -> bool {
+    egui_contexts
+        .iter()
+        .all(|ctx| !ctx.get().wants_pointer_input())
+}
 
 impl Plugin for CameraControllerPlugin {
     fn build(&self, app: &mut App) {
@@ -100,7 +101,8 @@ impl Plugin for CameraControllerPlugin {
                 max_zoom: 2.0,
                 zoom_step: 0.1,
             })
-            .add_systems(Startup,setup_camera)
-            .add_systems(Update, (handle_mouse_input, zoom_camera_system, pan_camera_system));
+            .add_systems(Startup, setup_camera)
+            .add_systems(Update, (handle_mouse_input, zoom_camera_system, pan_camera_system)
+                .chain().after(EguiSet::ProcessInput).distributive_run_if(egui_mouse_unused));
     }
 }
