@@ -16,16 +16,32 @@ pub struct Mover;
 fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
+    mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
-    for i in 0..1 {
-        commands.spawn(MaterialMesh2dBundle {
-            mesh: meshes.add(shape::Circle::new(50.).into()).into(),
-            material: materials.add(ColorMaterial::from(Color::PURPLE)),
-            transform: Transform::from_translation(Vec3::new(0., 0., 0.)),
+    // circular base
+    commands.spawn(PbrBundle {
+        mesh: meshes.add(shape::Circle::new(4.0).into()),
+        material: materials.add(Color::WHITE.into()),
+        transform: Transform::from_rotation(Quat::from_rotation_x(-std::f32::consts::FRAC_PI_2)),
+        ..default()
+    });
+    // cube
+    commands.spawn(PbrBundle {
+        mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
+        material: materials.add(Color::rgb_u8(124, 144, 255).into()),
+        transform: Transform::from_xyz(0.0, 0.5, 0.0),
+        ..default()
+    });
+    // light
+    commands.spawn(PointLightBundle {
+        point_light: PointLight {
+            intensity: 1500.0,
+            shadows_enabled: true,
             ..default()
-        }).insert(Mover);
-    }
+        },
+        transform: Transform::from_xyz(4.0, 8.0, 4.0),
+        ..default()
+    });
 }
 
 fn mouse_click_system(
@@ -49,17 +65,9 @@ fn draw_target(
     mut gizmos: Gizmos,
     target: Res<Target>,
 ) {
-    // Draw X on target position
-    gizmos.line(
-        target.position + Vec3::new(-10., -10., 0.),
-        target.position + Vec3::new(10., 10., 0.),
-        Color::RED,
-    );
-    gizmos.line(
-        target.position + Vec3::new(-10., 10., 0.),
-        target.position + Vec3::new(10., -10., 0.),
-        Color::RED,
-    );
+    gizmos
+        .circle(Vec3::ZERO, Vec3::Y, 3.1, Color::NAVY)
+        .segments(64);
 }
 
 fn move_towards_target_system(
