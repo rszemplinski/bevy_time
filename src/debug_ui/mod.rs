@@ -7,7 +7,6 @@ use bevy_inspector_egui::DefaultInspectorConfigPlugin;
 
 pub struct DebugUIPlugin;
 
-
 fn display_debug_stats(mut egui: EguiContexts, diagnostics: Res<DiagnosticsStore>) {
     egui::Window::new("Performance").show(egui.ctx_mut(), |ui| {
         ui.label(format!(
@@ -74,11 +73,13 @@ impl Plugin for DebugUIPlugin {
             )
             .configure_sets(Update, (DebugUISet::Toggle, DebugUISet::Display)
                 .chain().before(EguiSet::ProcessInput))
-            .init_resource::<DebugUIState>();
+            .insert_resource(DebugUIState {
+                display_debug_info: true
+            });
     }
 }
 
-#[derive(Default, Resource)]
+#[derive(Resource, Default)]
 struct DebugUIState {
     display_debug_info: bool,
 }

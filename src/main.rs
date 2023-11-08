@@ -1,17 +1,21 @@
 use bevy::{prelude::*};
 use bevy::window::PresentMode;
 use bevy_cursor::{CursorInfoPlugin};
+use bevy_xpbd_3d::prelude::PhysicsPlugins;
 use crate::camera_controller::CameraControllerPlugin;
-use crate::chase::ChasePlugin;
+use crate::solar_system::ChasePlugin;
 use crate::debug_ui::DebugUIPlugin;
+use crate::universe::Universe;
 
 mod camera_controller;
-mod chase;
+mod solar_system;
 mod debug_ui;
+mod universe;
 
 fn main() {
     App::new()
         .insert_resource(ClearColor(Color::BLACK))
+        .init_resource::<Universe>()
         .add_plugins((
             DefaultPlugins.set(WindowPlugin {
                 primary_window: Some(Window {
@@ -22,6 +26,7 @@ fn main() {
                 }),
                 ..default()
             }),
+            PhysicsPlugins::default(),
             CursorInfoPlugin,
             DebugUIPlugin,
             CameraControllerPlugin,

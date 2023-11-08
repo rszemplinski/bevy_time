@@ -1,7 +1,4 @@
-use bevy::prelude::*;Version Compatibility
-use bevy_egui::EguiSet;
-use bevy_inspector_egui::{bevy_egui};
-use bevy_inspector_egui::bevy_egui::{EguiContext};
+use bevy::prelude::*;
 use bevy_panorbit_camera::{PanOrbitCamera, PanOrbitCameraPlugin};
 
 pub struct CameraControllerPlugin;

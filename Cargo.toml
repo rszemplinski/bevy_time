@@ -10,9 +10,10 @@ resolver = "2"
 [dependencies]
 bevy = { version = "0.12", features = ["dynamic_linking"] }
 bevy-inspector-egui = "0.21.0"
-bevy_cursor = "0.2.0"
+bevy_cursor = { version = "0.2.0", features = ["3d"] }
 bevy_egui = { version = "0.23.0", features = ["immutable_ctx"] }
 bevy_panorbit_camera = { version = "0.9.0", features = ["bevy_egui"] }
+bevy_xpbd_3d = "0.3"
 
 
 # Enable a small amount of optimization in debug mode
