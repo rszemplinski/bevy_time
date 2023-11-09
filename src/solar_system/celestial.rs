@@ -1,14 +1,14 @@
-use bevy::prelude::{Bundle, Component, PbrBundle};
-use bevy_xpbd_3d::prelude::{LinearVelocity, Mass};
+use bevy::prelude::{Bundle, Component, Name, PbrBundle, Reflect};
+use bevy_xpbd_3d::prelude::{Collider, LinearVelocity, Mass, RigidBody};
 
-#[derive(Component, Default, Debug)]
+#[derive(Component, Reflect, Default, Debug)]
 pub struct Radius(pub f32);
 
 #[derive(Component, Default, Debug)]
-pub struct Name(pub String);
+pub struct CelestialBody;
 
 #[derive(Bundle, Default)]
-pub struct CelestialBody {
+pub struct CelestialBodyBundle {
     pub name: Name,
     pub mass: Mass,
     pub radius: Radius,

@@ -1,4 +1,4 @@
-use bevy::diagnostic::{DiagnosticsStore, EntityCountDiagnosticsPlugin, FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
+use bevy::diagnostic::{DiagnosticsStore, EntityCountDiagnosticsPlugin, FrameTimeDiagnosticsPlugin};
 use bevy::input::ButtonState;
 use bevy::input::keyboard::KeyboardInput;
 use bevy::prelude::*;
@@ -32,7 +32,7 @@ fn toggle_debug_ui_displays(
     mut inputs: EventReader<KeyboardInput>,
     mut ui_state: ResMut<DebugUIState>,
 ) {
-    for input in inputs.iter() {
+    for input in inputs.read() {
         match input.key_code {
             Some(key_code) if key_code == KeyCode::F3 && input.state == ButtonState::Pressed => {
                 ui_state.display_debug_info = !ui_state.display_debug_info;
@@ -63,8 +63,9 @@ impl Plugin for DebugUIPlugin {
                 EguiPlugin,
                 DefaultInspectorConfigPlugin,
             ))
-            .add_systems(Update,
-                         (toggle_debug_ui_displays.in_set(DebugUISet::Toggle)))
+            .add_systems(
+                Update,
+                toggle_debug_ui_displays.in_set(DebugUISet::Toggle))
             .add_systems(
                 Update,
                 display_debug_stats

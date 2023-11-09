@@ -713,6 +713,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "bevy_infinite_grid"
+version = "0.10.0"
+source = "git+https://github.com/rszemplinski/bevy_infinite_grid.git?branch=main#dbcff32ad5b88f9cf8271b41cfe8fceec2d4c47d"
+dependencies = [
+ "bevy",
+]
+
+[[package]]
 name = "bevy_input"
 version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3126,6 +3134,7 @@ dependencies = [
  "bevy-inspector-egui",
  "bevy_cursor",
  "bevy_egui",
+ "bevy_infinite_grid",
  "bevy_panorbit_camera",
  "bevy_xpbd_3d",
 ]
