@@ -1,5 +1,5 @@
 use bevy::prelude::{Bundle, Component, Name, PbrBundle, Reflect};
-use bevy_xpbd_3d::prelude::{Collider, LinearVelocity, Mass, RigidBody};
+use bevy_xpbd_3d::prelude::{LinearVelocity, Mass};
 
 #[derive(Component, Reflect, Default, Debug)]
 pub struct Radius(pub f32);

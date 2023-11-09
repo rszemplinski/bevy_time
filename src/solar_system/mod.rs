@@ -1,10 +1,11 @@
 mod celestial;
+mod debug;
 
 use bevy::input::common_conditions::input_toggle_active;
 use bevy::prelude::*;
-use bevy_inspector_egui::quick::FilterQueryInspectorPlugin;
-use bevy_xpbd_3d::prelude::{AsyncCollider, Collider, ColliderDensity, ComputedCollider, Gravity, LinearVelocity, Mass, RigidBody};
+use bevy_xpbd_3d::prelude::{AsyncCollider, ColliderDensity, ComputedCollider, Gravity, LinearVelocity, Mass, RigidBody};
 use crate::solar_system::celestial::{CelestialBody, CelestialBodyBundle, Radius};
+use crate::solar_system::debug::CelestialBodyDebugPlugin;
 
 fn setup(
     mut commands: Commands,
@@ -100,8 +101,9 @@ impl Plugin for SolarSystemPlugin {
         app
             .register_type::<Radius>()
             .insert_resource(Gravity(Vec3::splat(0.)))
-            .add_plugins(FilterQueryInspectorPlugin::<With<CelestialBody>>::default()
-                .run_if(input_toggle_active(true, KeyCode::F4)))
+            .add_plugins(
+                CelestialBodyDebugPlugin::default()
+                    .run_if(input_toggle_active(true, KeyCode::F4)))
             .add_systems(Startup, setup)
             .add_systems(FixedUpdate, check_for_changes);
     }
