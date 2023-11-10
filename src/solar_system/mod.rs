@@ -3,7 +3,8 @@ mod debug;
 
 use bevy::input::common_conditions::input_toggle_active;
 use bevy::prelude::*;
-use bevy_xpbd_3d::prelude::{AsyncCollider, ColliderDensity, ComputedCollider, Gravity, LinearVelocity, Mass, RigidBody};
+use bevy_mod_picking::prelude::*;
+use bevy_xpbd_3d::prelude::{Gravity, LinearVelocity, Mass};
 use crate::solar_system::celestial::{CelestialBody, CelestialBodyBundle, Radius};
 use crate::solar_system::debug::CelestialBodyDebugPlugin;
 
@@ -57,9 +58,9 @@ fn setup(
                 ..default()
             },
         },
-        AsyncCollider(ComputedCollider::ConvexHull),
-        RigidBody::Dynamic,
-        ColliderDensity(0.0),
+        // AsyncCollider(ComputedCollider::ConvexHull),
+        // RigidBody::Dynamic,
+        // ColliderDensity(0.0),
         CelestialBody
     )).with_children(|p| {
         p.spawn(PointLightBundle {
