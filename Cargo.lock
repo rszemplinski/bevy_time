@@ -715,7 +715,7 @@ dependencies = [
 [[package]]
 name = "bevy_infinite_grid"
 version = "0.10.0"
-source = "git+https://github.com/rszemplinski/bevy_infinite_grid.git?branch=main#dbcff32ad5b88f9cf8271b41cfe8fceec2d4c47d"
+source = "git+https://github.com/rszemplinski/bevy_infinite_grid?branch=main#dbcff32ad5b88f9cf8271b41cfe8fceec2d4c47d"
 dependencies = [
  "bevy",
 ]
@@ -859,6 +859,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "bevy_polyline"
+version = "0.8.0"
+source = "git+https://github.com/rszemplinski/bevy_polyline?branch=main#9b54deaca02098514c6c7a524bb9dc15214993bb"
+dependencies = [
+ "bevy",
+ "bitflags 2.4.1",
+ "naga 0.14.0",
+]
+
+[[package]]
 name = "bevy_ptr"
 version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -930,7 +940,7 @@ dependencies = [
  "image",
  "js-sys",
  "ktx2",
- "naga",
+ "naga 0.13.0",
  "naga_oil",
  "ruzstd",
  "serde",
@@ -1167,9 +1177,9 @@ dependencies = [
 
 [[package]]
 name = "bevy_xpbd_3d"
-version = "0.3.1"
+version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f3cb0a8717667702b0aa8c235a67ff79449fd5922b6590ba99170c5136700ce6"
+checksum = "8abc57e8b249dc2ae59896189c05a39faca384c1f2eb7fd6dfb5127ad796354d"
 dependencies = [
  "bevy",
  "bevy_xpbd_derive",
@@ -2586,6 +2596,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "naga"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "61d829abac9f5230a85d8cc83ec0879b4c09790208ae25b5ea031ef84562e071"
+dependencies = [
+ "bit-set",
+ "bitflags 2.4.1",
+ "indexmap 2.1.0",
+ "log",
+ "num-traits",
+ "pp-rs",
+ "rustc-hash",
+ "spirv",
+ "thiserror",
+]
+
+[[package]]
 name = "naga_oil"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2595,7 +2622,7 @@ dependencies = [
  "codespan-reporting",
  "data-encoding",
  "indexmap 1.9.3",
- "naga",
+ "naga 0.13.0",
  "once_cell",
  "regex",
  "regex-syntax 0.7.5",
@@ -3136,6 +3163,7 @@ dependencies = [
  "bevy_egui",
  "bevy_infinite_grid",
  "bevy_panorbit_camera",
+ "bevy_polyline",
  "bevy_xpbd_3d",
 ]
 
@@ -3983,7 +4011,7 @@ dependencies = [
  "cfg-if",
  "js-sys",
  "log",
- "naga",
+ "naga 0.13.0",
  "parking_lot",
  "profiling",
  "raw-window-handle",
@@ -4008,7 +4036,7 @@ dependencies = [
  "bitflags 2.4.1",
  "codespan-reporting",
  "log",
- "naga",
+ "naga 0.13.0",
  "parking_lot",
  "profiling",
  "raw-window-handle",
@@ -4045,7 +4073,7 @@ dependencies = [
  "libloading 0.8.1",
  "log",
  "metal",
- "naga",
+ "naga 0.13.0",
  "objc",
  "parking_lot",
  "profiling",

@@ -57,7 +57,7 @@ fn celestial_debug(world: &mut World) {
     egui::Window::new("Celestial Bodies")
         .pivot(egui::Align2::RIGHT_TOP)
         .default_pos(egui::pos2(rect.size().x - 20., 20.))
-        .default_size(egui::vec2(200., 400.))
+        .default_size(egui::vec2(200., 250.))
         .show(ctx.get_mut(), |ui| {
             egui::ScrollArea::vertical().show(ui, |ui| {
                 bevy_inspector::ui_for_world_entities_filtered::<With<CelestialBody>>(world, ui, false);
