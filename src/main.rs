@@ -3,7 +3,6 @@ use bevy::window::PresentMode;
 use bevy_cursor::{CursorInfoPlugin};
 use bevy_infinite_grid::{InfiniteGridBundle, InfiniteGridPlugin, InfiniteGridSettings};
 use bevy_mod_picking::DefaultPickingPlugins;
-use bevy_xpbd_3d::prelude::PhysicsPlugins;
 use crate::camera_controller::CameraControllerPlugin;
 use crate::solar_system::SolarSystemPlugin;
 use crate::debug_ui::DebugUIPlugin;
@@ -28,7 +27,7 @@ fn main() {
                 ..default()
             }),
             DefaultPickingPlugins,
-            PhysicsPlugins::default(),
+            // PhysicsPlugins::default(),
             CursorInfoPlugin,
             InfiniteGridPlugin,
             DebugUIPlugin,

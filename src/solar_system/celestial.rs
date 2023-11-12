@@ -1,17 +1,19 @@
-use bevy::prelude::{Bundle, Component, Name, PbrBundle, Reflect};
-use bevy_xpbd_3d::prelude::{LinearVelocity, Mass};
+use bevy::prelude::{Component, Reflect, Vec3};
+use ringbuffer::ConstGenericRingBuffer;
 
-#[derive(Component, Reflect, Default, Debug)]
-pub struct Radius(pub f32);
+#[derive(Component, Copy, Clone, Reflect, Default)]
+pub struct CelestialBody {
+    pub mass: f32,
+    pub radius: f32,
+    pub velocity: Vec3,
+    pub position: Vec3,
+}
 
-#[derive(Component, Default, Debug)]
-pub struct CelestialBody;
+#[derive(Component, Clone, Default, Debug)]
+pub struct Trail(pub ConstGenericRingBuffer<Vec3, 1024>);
 
-#[derive(Bundle, Default)]
-pub struct CelestialBodyBundle {
-    pub name: Name,
-    pub mass: Mass,
-    pub radius: Radius,
-    pub velocity: LinearVelocity,
-    pub pbr: PbrBundle,
+impl CelestialBody {
+    pub fn update_position(&mut self, dt: f32) {
+        self.position += self.velocity * dt;
+    }
 }

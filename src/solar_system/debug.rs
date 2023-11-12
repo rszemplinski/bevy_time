@@ -60,7 +60,7 @@ fn celestial_debug(world: &mut World) {
         .default_size(egui::vec2(200., 250.))
         .show(ctx.get_mut(), |ui| {
             egui::ScrollArea::vertical().show(ui, |ui| {
-                bevy_inspector::ui_for_world_entities_filtered::<With<CelestialBody>>(world, ui, false);
+                bevy_inspector::ui_for_world_entities_filtered::<With<CelestialBody>>(world, ui, true);
                 ui.allocate_space(ui.available_size());
             });
         });

@@ -331,7 +331,6 @@ version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "329e344f835f5a9a4c46a6d1d57371f726aa2c482d1bd669b2b9c4eb1ee91fd7"
 dependencies = [
- "bevy_dylib",
  "bevy_internal",
 ]
 
@@ -554,15 +553,6 @@ dependencies = [
  "bevy_time",
  "bevy_utils",
  "sysinfo",
-]
-
-[[package]]
-name = "bevy_dylib"
-version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "766980812401453563a7490a351dab88e8f53e62ff37e27a5236e6893deedc5a"
-dependencies = [
- "bevy_internal",
 ]
 
 [[package]]
@@ -857,14 +847,17 @@ dependencies = [
 [[package]]
 name = "bevy_mod_picking"
 version = "0.17.0"
-source = "git+https://github.com/TristanCacqueray/bevy_mod_picking?branch=bevy-0.12#a152595bc23afe971e7ce6a499d54e560bcec1b2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2392df63bc272d5a546633e0a19ef6d428173e3dd22bad0da0a59c6fddd6f2cf"
 dependencies = [
  "bevy_app",
  "bevy_core",
  "bevy_ecs",
+ "bevy_egui",
  "bevy_eventlistener",
  "bevy_math",
  "bevy_picking_core",
+ "bevy_picking_egui",
  "bevy_picking_highlight",
  "bevy_picking_input",
  "bevy_picking_raycast",
@@ -940,7 +933,8 @@ dependencies = [
 [[package]]
 name = "bevy_picking_core"
 version = "0.17.0"
-source = "git+https://github.com/TristanCacqueray/bevy_mod_picking?branch=bevy-0.12#a152595bc23afe971e7ce6a499d54e560bcec1b2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0799488c4505d68886209afd77ff9c898b634abf7f97fffa8ae37a356cbc8ab2"
 dependencies = [
  "bevy_app",
  "bevy_derive",
@@ -954,9 +948,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "bevy_picking_egui"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9932cc0ea29aff4f7aa7b5127c04afaeccd6ac41ed069bedd4c85dd0d9afcd3f"
+dependencies = [
+ "bevy_app",
+ "bevy_ecs",
+ "bevy_egui",
+ "bevy_picking_core",
+ "bevy_picking_selection",
+ "bevy_reflect",
+ "bevy_render",
+]
+
+[[package]]
 name = "bevy_picking_highlight"
 version = "0.17.0"
-source = "git+https://github.com/TristanCacqueray/bevy_mod_picking?branch=bevy-0.12#a152595bc23afe971e7ce6a499d54e560bcec1b2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e3cfada25fcbd459b0ecd57a3bb2861820915744bfabadef141a0881a06a7199"
 dependencies = [
  "bevy_app",
  "bevy_asset",
@@ -972,7 +982,8 @@ dependencies = [
 [[package]]
 name = "bevy_picking_input"
 version = "0.17.0"
-source = "git+https://github.com/TristanCacqueray/bevy_mod_picking?branch=bevy-0.12#a152595bc23afe971e7ce6a499d54e560bcec1b2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "16a2b375461e3965c2bd4357d53c772eeafa4747812f54be09de373c0c203da4"
 dependencies = [
  "bevy_app",
  "bevy_ecs",
@@ -990,7 +1001,8 @@ dependencies = [
 [[package]]
 name = "bevy_picking_raycast"
 version = "0.17.0"
-source = "git+https://github.com/TristanCacqueray/bevy_mod_picking?branch=bevy-0.12#a152595bc23afe971e7ce6a499d54e560bcec1b2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0a2b76420a1e6d9c0fdd4f35056ffb2cfaa052d102d5b1951f517d9fd36b25ab"
 dependencies = [
  "bevy_app",
  "bevy_ecs",
@@ -1005,7 +1017,8 @@ dependencies = [
 [[package]]
 name = "bevy_picking_selection"
 version = "0.17.0"
-source = "git+https://github.com/TristanCacqueray/bevy_mod_picking?branch=bevy-0.12#a152595bc23afe971e7ce6a499d54e560bcec1b2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "814c784c957653ab0baf77ff5563a90d4150f704ba0a173f9de8abe3037f803c"
 dependencies = [
  "bevy_app",
  "bevy_ecs",
@@ -1019,7 +1032,8 @@ dependencies = [
 [[package]]
 name = "bevy_picking_sprite"
 version = "0.17.0"
-source = "git+https://github.com/TristanCacqueray/bevy_mod_picking?branch=bevy-0.12#a152595bc23afe971e7ce6a499d54e560bcec1b2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cefe1b3172b06f93887f0ed8a01f8796e2d7486fe68a37035e38f59244c88663"
 dependencies = [
  "bevy_app",
  "bevy_asset",
@@ -1035,7 +1049,8 @@ dependencies = [
 [[package]]
 name = "bevy_picking_ui"
 version = "0.17.0"
-source = "git+https://github.com/TristanCacqueray/bevy_mod_picking?branch=bevy-0.12#a152595bc23afe971e7ce6a499d54e560bcec1b2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a020364f01021b1faf9cc4de85b592505440d5b6274fb39c9d9a916b7639872b"
 dependencies = [
  "bevy_app",
  "bevy_ecs",
@@ -1045,16 +1060,6 @@ dependencies = [
  "bevy_transform",
  "bevy_ui",
  "bevy_window",
-]
-
-[[package]]
-name = "bevy_polyline"
-version = "0.8.0"
-source = "git+https://github.com/rszemplinski/bevy_polyline?branch=main#9b54deaca02098514c6c7a524bb9dc15214993bb"
-dependencies = [
- "bevy",
- "bitflags 2.4.1",
- "naga 0.14.0",
 ]
 
 [[package]]
@@ -1129,7 +1134,7 @@ dependencies = [
  "image",
  "js-sys",
  "ktx2",
- "naga 0.13.0",
+ "naga",
  "naga_oil",
  "ruzstd",
  "serde",
@@ -2785,23 +2790,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "naga"
-version = "0.14.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "61d829abac9f5230a85d8cc83ec0879b4c09790208ae25b5ea031ef84562e071"
-dependencies = [
- "bit-set",
- "bitflags 2.4.1",
- "indexmap 2.1.0",
- "log",
- "num-traits",
- "pp-rs",
- "rustc-hash",
- "spirv",
- "thiserror",
-]
-
-[[package]]
 name = "naga_oil"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2811,7 +2799,7 @@ dependencies = [
  "codespan-reporting",
  "data-encoding",
  "indexmap 1.9.3",
- "naga 0.13.0",
+ "naga",
  "once_cell",
  "regex",
  "regex-syntax 0.7.5",
@@ -3353,8 +3341,8 @@ dependencies = [
  "bevy_infinite_grid",
  "bevy_mod_picking",
  "bevy_panorbit_camera",
- "bevy_polyline",
  "bevy_xpbd_3d",
+ "ringbuffer",
 ]
 
 [[package]]
@@ -3495,6 +3483,12 @@ name = "renderdoc-sys"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "216080ab382b992234dda86873c18d4c48358f5cfcb70fd693d7f6f2131b628b"
+
+[[package]]
+name = "ringbuffer"
+version = "0.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3df6368f71f205ff9c33c076d170dd56ebf68e8161c733c0caa07a7a5509ed53"
 
 [[package]]
 name = "robust"
@@ -4201,7 +4195,7 @@ dependencies = [
  "cfg-if",
  "js-sys",
  "log",
- "naga 0.13.0",
+ "naga",
  "parking_lot",
  "profiling",
  "raw-window-handle",
@@ -4226,7 +4220,7 @@ dependencies = [
  "bitflags 2.4.1",
  "codespan-reporting",
  "log",
- "naga 0.13.0",
+ "naga",
  "parking_lot",
  "profiling",
  "raw-window-handle",
@@ -4263,7 +4257,7 @@ dependencies = [
  "libloading 0.8.1",
  "log",
  "metal",
- "naga 0.13.0",
+ "naga",
  "objc",
  "parking_lot",
  "profiling",

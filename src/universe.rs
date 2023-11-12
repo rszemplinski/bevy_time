@@ -1,6 +1,7 @@
 use bevy::prelude::Resource;
 
-const GRAVITY_CONSTANT: f32 = 0.0001;
+// const GRAVITATIONAL_CONSTANT: f32 = 6.674e-11;
+const GRAVITATIONAL_CONSTANT: f32 = 0.01;
 
 #[derive(Resource, Debug)]
 pub struct Universe {
@@ -10,7 +11,7 @@ pub struct Universe {
 impl Default for Universe {
     fn default() -> Self {
         Self {
-            gravity_constant: GRAVITY_CONSTANT,
+            gravity_constant: GRAVITATIONAL_CONSTANT,
         }
     }
 }

@@ -1,8 +1,6 @@
-use std::time::Duration;
 use bevy::diagnostic::{DiagnosticsStore, EntityCountDiagnosticsPlugin, FrameTimeDiagnosticsPlugin};
 use bevy::input::common_conditions::input_toggle_active;
 use bevy::prelude::*;
-use bevy::time::common_conditions::on_timer;
 use bevy_egui::{egui, EguiContexts, EguiPlugin};
 use bevy_inspector_egui::DefaultInspectorConfigPlugin;
 
@@ -69,7 +67,7 @@ impl Plugin for DebugUIPlugin {
             .add_systems(
                 Update,
                 display_debug_stats
-                    .run_if(input_toggle_active(true, KeyCode::F3)),
+                    .run_if(input_toggle_active(false, KeyCode::F3)),
             );
     }
 }

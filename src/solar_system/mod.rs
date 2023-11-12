@@ -1,98 +1,114 @@
 mod celestial;
 mod debug;
+mod systems;
 
 use bevy::input::common_conditions::input_toggle_active;
 use bevy::prelude::*;
-use bevy_mod_picking::prelude::*;
-use bevy_xpbd_3d::prelude::{Gravity, LinearVelocity, Mass};
-use crate::solar_system::celestial::{CelestialBody, CelestialBodyBundle, Radius};
+use ringbuffer::ConstGenericRingBuffer;
+use crate::solar_system::celestial::{CelestialBody, Trail};
 use crate::solar_system::debug::CelestialBodyDebugPlugin;
+use crate::solar_system::systems::{check_for_changes, update_orbit, update_trails};
 
 fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
-    // // Plane
-    // commands.spawn((
-    //     RigidBody::Static,
-    //     AsyncCollider(ComputedCollider::ConvexHull),
-    //     PbrBundle {
-    //         mesh: meshes.add(shape::Circle::new(4.0).into()),
-    //         material: materials.add(Color::WHITE.into()),
-    //         transform: Transform::from_rotation(Quat::from_rotation_x(-std::f32::consts::FRAC_PI_2)),
-    //         ..default()
-    //     },
-    // ));
-    // // Cube
-    // commands.spawn((
-    //     RigidBody::Dynamic,
-    //     AngularVelocity(Vec3::new(2.5, 3.4, 1.6)),
-    //     Collider::cuboid(1.0, 1.0, 1.0),
-    //     PbrBundle {
-    //         mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
-    //         material: materials.add(Color::rgb(0.8, 0.7, 0.6).into()),
-    //         transform: Transform::from_xyz(0.0, 4.0, 0.0),
-    //         ..default()
-    //     },
-    // ));
-
-    const SUN_RADIUS: f32 = 1.0;
+    const SUN_RADIUS: f32 = 2.5;
     commands.spawn((
-        CelestialBodyBundle {
-            name: "Sun".into(),
-            mass: Mass(500.),
-            radius: Radius(SUN_RADIUS),
-            velocity: LinearVelocity(Vec3::ZERO),
-            pbr: PbrBundle {
-                mesh: meshes.add(Mesh::try_from(shape::Icosphere {
-                    radius: SUN_RADIUS,
-                    subdivisions: 5,
-                }).unwrap()),
-                material: materials.add(StandardMaterial {
-                    base_color: Color::ORANGE_RED,
-                    emissive: (Color::ORANGE_RED * 2.),
-                    ..default()
-                }),
-                transform: Transform::from_scale(Vec3::splat(1.0)),
+        Name::new("Sun"),
+        PbrBundle {
+            mesh: meshes.add(Mesh::try_from(shape::Icosphere {
+                radius: SUN_RADIUS,
+                subdivisions: 5,
+            }).unwrap()),
+            material: materials.add(StandardMaterial {
+                base_color: Color::ORANGE_RED,
+                emissive: (Color::ORANGE_RED * 2.),
                 ..default()
-            },
+            }),
+            transform: Transform::from_scale(Vec3::splat(1.0)),
+            ..default()
         },
-        // AsyncCollider(ComputedCollider::ConvexHull),
-        // RigidBody::Dynamic,
-        // ColliderDensity(0.0),
-        CelestialBody
+        CelestialBody {
+            mass: 1_000_000.,
+            radius: SUN_RADIUS,
+            velocity: Vec3::ZERO,
+            position: Vec3::ZERO,
+        },
     )).with_children(|p| {
         p.spawn(PointLightBundle {
             point_light: PointLight {
                 color: Color::WHITE,
-                intensity: 400.0,
-                range: 100.0,
-                radius: 1.,
+                intensity: 5_000.0,
+                range: 10_000.0,
+                radius: SUN_RADIUS,
+                shadows_enabled: true,
                 ..default()
             },
             ..default()
         });
     });
 
-    // light
-    // commands.spawn(PointLightBundle {
-    //     point_light: PointLight {
-    //         intensity: 1500.0,
-    //         shadows_enabled: true,
+    commands.spawn((
+        Name::new("Body 1"),
+        CelestialBody {
+            mass: 100.,
+            radius: 1.,
+            velocity: Vec3::new(-5., 0., 5.),
+            position: Vec3::new(150., 0., 0.),
+        },
+        PbrBundle {
+            mesh: meshes.add(Mesh::try_from(shape::Icosphere {
+                radius: 1.,
+                subdivisions: 5,
+            }).unwrap()),
+            material: materials.add(StandardMaterial {
+                base_color: Color::BLUE,
+                ..default()
+            }),
+            ..default()
+        },
+        Trail(ConstGenericRingBuffer::<Vec3, 1024>::new()),
+    ));
+
+    // commands.spawn((
+    //     Name::new("Body 2"),
+    //     PbrBundle {
+    //         mesh: meshes.add(Mesh::try_from(shape::Icosphere {
+    //             radius: 1.,
+    //             subdivisions: 5,
+    //         }).unwrap()),
+    //         material: materials.add(StandardMaterial {
+    //             base_color: Color::GREEN,
+    //             ..default()
+    //         }),
     //         ..default()
     //     },
-    //     transform: Transform::from_xyz(4.0, 8.0, 4.0),
-    //     ..default()
-    // });
-}
-
-fn check_for_changes(
-    mut query: Query<(&Radius, &mut Transform), Changed<Radius>>,
-) {
-    for (radius, mut transform) in query.iter_mut() {
-        transform.scale = Vec3::splat(radius.0);
-    }
+    //     CelestialBody {
+    //         mass: 100.,
+    //         radius: 1.,
+    //         velocity: Vec3::new(-10., 0., 10.),
+    //         position: Vec3::new(0., 0., -30.),
+    //     },
+    //     Trail(ConstGenericRingBuffer::<Vec3, 1024>::new()),
+    // ))
+    //     .with_children(|p| {
+    //         p.spawn((
+    //             PolylineBundle {
+    //                 polyline: polylines.add(Polyline {
+    //                     vertices: Vec::with_capacity(1024),
+    //                 }),
+    //                 material: polyline_materials.add(PolylineMaterial {
+    //                     width: (100f32 * 0.1).powf(1.8),
+    //                     color: Color::GREEN,
+    //                     perspective: true,
+    //                     ..Default::default()
+    //                 }),
+    //                 ..Default::default()
+    //             },
+    //         ));
+    //     });
 }
 
 pub struct SolarSystemPlugin;
@@ -100,12 +116,15 @@ pub struct SolarSystemPlugin;
 impl Plugin for SolarSystemPlugin {
     fn build(&self, app: &mut App) {
         app
-            .register_type::<Radius>()
-            .insert_resource(Gravity(Vec3::splat(0.)))
+            .register_type::<CelestialBody>()
             .add_plugins(
                 CelestialBodyDebugPlugin::default()
                     .run_if(input_toggle_active(true, KeyCode::F4)))
             .add_systems(Startup, setup)
-            .add_systems(FixedUpdate, check_for_changes);
+            .add_systems(FixedUpdate, (
+                check_for_changes,
+                update_orbit,
+                update_trails
+            ));
     }
 }
