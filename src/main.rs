@@ -1,6 +1,5 @@
 use bevy::{prelude::*};
 use bevy::window::PresentMode;
-use bevy_cursor::{CursorInfoPlugin};
 use bevy_infinite_grid::{InfiniteGridBundle, InfiniteGridPlugin, InfiniteGridSettings};
 use bevy_mod_picking::DefaultPickingPlugins;
 use crate::camera_controller::CameraControllerPlugin;
@@ -27,8 +26,6 @@ fn main() {
                 ..default()
             }),
             DefaultPickingPlugins,
-            // PhysicsPlugins::default(),
-            CursorInfoPlugin,
             InfiniteGridPlugin,
             DebugUIPlugin,
             CameraControllerPlugin,

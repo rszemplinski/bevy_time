@@ -16,7 +16,6 @@ pub fn check_for_changes(
         }
     }
 }
-
 fn calculate_gravitational_force(body1: &CelestialBody, body2: &CelestialBody, gravity_constant: f32) -> Vec3 {
     let distance_vec = body2.position - body1.position;
     let distance = distance_vec.length();
